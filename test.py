@@ -1,15 +1,7 @@
-import tempfile
-
 from dags import Environment
 from dags.core.graph import Graph
-from dags.utils.common import utcnow, rand_str
-
-
-def get_tmp_sqlite_db_url(dbname=None):
-    if dbname is None:
-        dbname = rand_str(10)
-    dir = tempfile.mkdtemp()
-    return f"sqlite:///{dir}/{dbname}.db"
+from dags.utils.common import utcnow
+from dags.testing.utils import get_tmp_sqlite_db_url
 
 
 def test_fred(api_key: str):

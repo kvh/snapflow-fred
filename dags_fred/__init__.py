@@ -1,9 +1,7 @@
 from dags_fred.pipes import extract_fred_observations
-import os
-
 from dags.core.module import DagsModule
 
-from .pipes import extract_fred_observations
+from .pipes.extract_observations import extract_fred_observations
 
 
 module = DagsModule(
