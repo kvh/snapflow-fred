@@ -1,4 +1,3 @@
-from dags_fred.pipes import extract_fred_observations
 from dags.core.module import DagsModule
 
 from .pipes.extract_observations import extract_fred_observations
