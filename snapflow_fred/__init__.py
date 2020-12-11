@@ -1,9 +1,9 @@
-from dags.core.module import DagsModule
+from snapflow import SnapflowModule
 
 from .pipes.extract_observations import extract_fred_observations
 
 
-module = DagsModule(
+module = SnapflowModule(
     "fred",
     py_module_path=__file__,
     py_module_name=__name__,

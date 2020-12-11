@@ -13,7 +13,7 @@ colorama==0.4.4; platform_system == "Windows" or sys_platform == "win32" \
 colorful==0.5.4 \
     --hash=sha256:8d264b52a39aae4c0ba3e2a46afbaec81b0559a99be0d2cfe2aba4cf94531348 \
     --hash=sha256:86848ad4e2eda60cd2519d8698945d22f6f6551e23e95f3f14dfbb60997807ea
-dags==0.1.2 \
+snapflow==0.1.2 \
     --hash=sha256:62a6c92c6751e7a611ebe858366bf96c9f5669cab8e1e78b4a621d0ffba895b2 \
     --hash=sha256:7b40ccd41ff8e48f80300f0895eeb97c5b1231adbd43e317a79080f539c4ab4a
 decorator==4.4.2 \

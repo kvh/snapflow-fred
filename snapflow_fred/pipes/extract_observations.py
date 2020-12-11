@@ -3,11 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
-from dags.core.data_formats import RecordsList, RecordsListGenerator
-from dags.core.extraction.connection import JsonHttpApiConnection
-from dags.core.pipe import pipe
-from dags.core.runnable import PipeContext
-from dags.utils.common import utcnow
+from snapflow import pipe, PipeContext
+from snapflow.core.data_formats import RecordsListGenerator
+from snapflow.core.extraction.connection import JsonHttpApiConnection
+from snapflow.utils.common import utcnow
 
 
 FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
