@@ -2,7 +2,6 @@ from snapflow import SnapflowModule
 
 from .pipes.extract_observations import extract_fred_observations
 
-
 module = SnapflowModule(
     "fred",
     py_module_path=__file__,

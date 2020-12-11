@@ -3,11 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
-from snapflow import pipe, PipeContext
+from snapflow import PipeContext, pipe
 from snapflow.core.data_formats import RecordsListGenerator
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 from snapflow.utils.common import utcnow
-
 
 FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
 MIN_DATE = datetime(1776, 7, 4)  # 🦅🇺🇸🦅
@@ -72,5 +71,3 @@ def extract_fred_observations(ctx: PipeContext) -> RecordsListGenerator:
         params["offset"] += num_returned
     # We only update date if we have fetched EVERYTHING available as of now
     ctx.emit_state_value("latest_fetched_at", utcnow())
-
-
