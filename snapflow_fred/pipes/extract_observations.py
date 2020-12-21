@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
 from snapflow import PipeContext, pipe
-from snapflow.core.data_formats import RecordsListGenerator
+from snapflow.storage.data_formats import RecordsIterator
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 from snapflow.utils.common import utcnow
 
@@ -29,7 +29,7 @@ class ExtractFredObservationsState:
     config_class=ExtractFredObservationsConfig,
     state_class=ExtractFredObservationsState,
 )
-def extract_fred_observations(ctx: PipeContext) -> RecordsListGenerator:
+def extract_fred_observations(ctx: PipeContext) -> RecordsIterator:
     api_key = ctx.get_config_value("api_key")
     series_id = ctx.get_config_value("series_id")
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")

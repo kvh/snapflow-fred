@@ -18,5 +18,5 @@ gdp = g.create_node(
     config={"api_key": "xxxxx", "series_id": "gdp"},
 )
 output = produce(gdp, env=env, modules=[fred])
-print(output.as_records_list())
+print(output.as_records())
 ```

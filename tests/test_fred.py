@@ -29,7 +29,7 @@ def test_fred():
         config={"api_key": api_key, "series_id": "gdp"},
     )
     output = produce(gdp, env=env, modules=[fred])
-    records = output.as_records_list()
+    records = output.as_records()
     assert len(records) >= (utcnow().year - 1946) * 4
     assert len(records) < (utcnow().year + 1 - 1946) * 4
 
