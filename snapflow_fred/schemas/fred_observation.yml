@@ -2,10 +2,10 @@ name: FredObservation
 version: 1
 description: >
   An observation from a FRED economic series.
-unique on:
+unique_on:
   - series_id
   - date
-on conflict: ReplaceWithNewer
+immutable: false
 fields:
   series_id:
     type: Unicode(256)

@@ -2,9 +2,9 @@ name: FredSeries
 version: 1
 description: >
   Metadata for a FRED economic series.
-unique on:
+unique_on:
   - id
-on conflict: ReplaceWithNewer
+immutable: false
 fields:
   id:
     type: Unicode
