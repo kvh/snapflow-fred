@@ -30,8 +30,8 @@ def test_fred():
     )
     output = produce(gdp, env=env, modules=[fred])
     records = output.as_records()
-    assert len(records) >= (utcnow().year - 1946) * 4
-    assert len(records) < (utcnow().year + 1 - 1946) * 4
+    assert len(records) >= (utcnow().year - 1946) * 4 - 1
+    assert len(records) < (utcnow().year + 1 - 1946) * 4 - 1
 
 
 if __name__ == "__main__":
