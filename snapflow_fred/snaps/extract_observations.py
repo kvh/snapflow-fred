@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
-from snapflow import PipeContext, pipe
+from snapflow import SnapContext, Snap, Param
 from snapflow.storage.data_formats import RecordsIterator
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 from snapflow.utils.common import utcnow
@@ -12,10 +12,6 @@ FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
 MIN_DATE = datetime(1776, 7, 4)  # 🦅🇺🇸🦅
 
 
-@dataclass
-class ExtractFredObservationsConfig:
-    api_key: str
-    series_id: str
 
 
 @dataclass
@@ -23,15 +19,16 @@ class ExtractFredObservationsState:
     latest_fetched_at: datetime
 
 
-@pipe(
+@Snap(
     "extract_observations",
     module="fred",
-    config_class=ExtractFredObservationsConfig,
     state_class=ExtractFredObservationsState,
 )
-def extract_fred_observations(ctx: PipeContext) -> RecordsIterator:
-    api_key = ctx.get_config_value("api_key")
-    series_id = ctx.get_config_value("series_id")
+@Param("api_key", "str")
+@Param("series_id", "str")
+def extract_fred_observations(ctx: SnapContext) -> RecordsIterator:
+    api_key = ctx.get_param("api_key")
+    series_id = ctx.get_param("series_id")
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")
     if latest_fetched_at:
         # Two year curing window (to be safe)

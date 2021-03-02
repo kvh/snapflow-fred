@@ -26,7 +26,7 @@ def test_fred():
     # Initial graph
     gdp = g.create_node(
         "fred.extract_observations",
-        config={"api_key": api_key, "series_id": "gdp"},
+        params={"api_key": api_key, "series_id": "gdp"},
     )
     output = produce(gdp, env=env, modules=[fred])
     records = output.as_records()
