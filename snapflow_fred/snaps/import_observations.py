@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 
 from snapflow import SnapContext, Snap, Param
 from snapflow.storage.data_formats import RecordsIterator
-from snapflow.core.importion.connection import JsonHttpApiConnection
+from snapflow.core.extraction.connection import JsonHttpApiConnection
 from snapflow.utils.common import utcnow
 
 FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
