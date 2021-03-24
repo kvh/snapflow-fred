@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 
 from snapflow import SnapContext, Snap, Param
 from snapflow.storage.data_formats import RecordsIterator
-from snapflow.core.extraction.connection import JsonHttpApiConnection
+from snapflow.core.importion.connection import JsonHttpApiConnection
 from snapflow.utils.common import utcnow
 
 FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
@@ -15,18 +15,19 @@ MIN_DATE = datetime(1776, 7, 4)  # 🦅🇺🇸🦅
 
 
 @dataclass
-class ExtractFredObservationsState:
+class ImportFredObservationsState:
     latest_fetched_at: datetime
 
 
 @Snap(
-    "extract_observations",
+    "import_observations",
     module="fred",
-    state_class=ExtractFredObservationsState,
+    state_class=ImportFredObservationsState,
+    display_name="Import FRED observations",
 )
 @Param("api_key", "str")
 @Param("series_id", "str")
-def extract_fred_observations(ctx: SnapContext) -> RecordsIterator:
+def import_fred_observations(ctx: SnapContext) -> RecordsIterator:
     api_key = ctx.get_param("api_key")
     series_id = ctx.get_param("series_id")
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")
