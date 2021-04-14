@@ -2,16 +2,19 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
+from typing import Iterator, TYPE_CHECKING
 
+from dcp.data_format import Records
+from dcp.utils.common import utcnow
 from snapflow import SnapContext, Snap, Param
-from snapflow.storage.data_formats import RecordsIterator
+
 from snapflow.core.extraction.connection import JsonHttpApiConnection
-from snapflow.utils.common import utcnow
+
+if TYPE_CHECKING:
+    from snapflow_fred import FredObservation
 
 FRED_API_BASE_URL = "https://api.stlouisfed.org/fred/"
 MIN_DATE = datetime(1776, 7, 4)  # 🦅🇺🇸🦅
-
-
 
 
 @dataclass
@@ -27,7 +30,7 @@ class ImportFredObservationsState:
 )
 @Param("api_key", "str")
 @Param("series_id", "str")
-def import_fred_observations(ctx: SnapContext) -> RecordsIterator:
+def import_fred_observations(ctx: SnapContext) -> Iterator[Records[FredObservation]]:
     api_key = ctx.get_param("api_key")
     series_id = ctx.get_param("series_id")
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")

@@ -8,7 +8,7 @@ unique_on:
 immutable: false
 fields:
   series_id:
-    type: Unicode(256)
+    type: Text
     validators:
       - NotNull
   realtime_start:
@@ -18,4 +18,4 @@ fields:
   date:
     type: Date
   value:
-    type: Numeric(18, 6)
+    type: Decimal(18, 6)

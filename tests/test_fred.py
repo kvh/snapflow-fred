@@ -1,7 +1,7 @@
 import os
 
 from snapflow import Environment, graph, produce
-from snapflow.utils.common import utcnow
+from dcp.utils.common import utcnow
 
 
 def ensure_api_key() -> str:
@@ -28,8 +28,8 @@ def test_fred():
         "fred.import_observations",
         params={"api_key": api_key, "series_id": "gdp"},
     )
-    output = produce(gdp, env=env, modules=[fred])
-    records = output.as_records()
+    blocks = produce(gdp, env=env, modules=[fred])
+    records = blocks[0].as_records()
     assert len(records) >= (utcnow().year - 1946) * 4 - 1
     assert len(records) < (utcnow().year + 1 - 1946) * 4 - 1
 

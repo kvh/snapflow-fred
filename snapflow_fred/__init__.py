@@ -1,6 +1,10 @@
+from typing import TypeVar
 from snapflow import SnapflowModule
 
 from .snaps.import_observations import import_fred_observations
+
+FredObservation = TypeVar("FredObservation")
+FredSeries = TypeVar("FredSeries")
 
 module = SnapflowModule(
     "fred",

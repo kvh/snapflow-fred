@@ -17,6 +17,6 @@ gdp = g.create_node(
     "fred.import_observations",
     params={"api_key": "xxxxx", "series_id": "gdp"},
 )
-output = produce(gdp, env=env, modules=[fred])
-print(output.as_records())
+blocks = produce(gdp, env=env, modules=[fred])
+print(blocks[0].as_records())
 ```
