@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
-from typing import Iterator, TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterator
 
 from dcp.data_format import Records
 from dcp.utils.common import utcnow
-from snapflow import SnapContext, Snap, Param
-
+from snapflow import Param, Function, FunctionContext
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 
 if TYPE_CHECKING:
@@ -22,17 +21,17 @@ class ImportFredObservationsState:
     latest_fetched_at: datetime
 
 
-@Snap(
+@Function(
     "import_observations",
-    module="fred",
+    namespace="fred",
     state_class=ImportFredObservationsState,
     display_name="Import FRED observations",
 )
-@Param("api_key", "str")
-@Param("series_id", "str")
-def import_fred_observations(ctx: SnapContext) -> Iterator[Records[FredObservation]]:
-    api_key = ctx.get_param("api_key")
-    series_id = ctx.get_param("series_id")
+def import_fred_observations(
+    ctx: FunctionContext,
+    api_key: str,
+    series_id: str,
+) -> Iterator[Records[FredObservation]]:
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")
     if latest_fetched_at:
         # Two year curing window (to be safe)

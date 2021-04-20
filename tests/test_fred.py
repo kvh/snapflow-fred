@@ -1,7 +1,7 @@
 import os
 
-from snapflow import Environment, graph, produce
 from dcp.utils.common import utcnow
+from snapflow import Environment, graph, produce
 
 
 def ensure_api_key() -> str:
@@ -17,7 +17,7 @@ def ensure_api_key() -> str:
 def test_fred():
     api_key = ensure_api_key()
 
-    import snapflow_fred as fred
+    from snapflow_fred import module as fred
 
     env = Environment(metadata_storage="sqlite://")
 
