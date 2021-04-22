@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Iterator
 
 from dcp.data_format import Records
 from dcp.utils.common import utcnow
-from snapflow import Param, Function, FunctionContext
+from snapflow import datafunction, Context
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 
 if TYPE_CHECKING:
@@ -21,16 +21,14 @@ class ImportFredObservationsState:
     latest_fetched_at: datetime
 
 
-@Function(
+@datafunction(
     "import_observations",
     namespace="fred",
     state_class=ImportFredObservationsState,
     display_name="Import FRED observations",
 )
 def import_fred_observations(
-    ctx: FunctionContext,
-    api_key: str,
-    series_id: str,
+    ctx: Context, api_key: str, series_id: str,
 ) -> Iterator[Records[FredObservation]]:
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")
     if latest_fetched_at:
