@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 from typing import TYPE_CHECKING, Iterator
 
 from dcp.data_format import Records
-from dcp.utils.common import utcnow
+from dcp.utils.common import ensure_datetime, utcnow
 from snapflow import datafunction, Context
 from snapflow.core.extraction.connection import JsonHttpApiConnection
 
@@ -27,13 +27,13 @@ class ImportFredObservationsState:
     state_class=ImportFredObservationsState,
     display_name="Import FRED observations",
 )
-def import_fred_observations(
+def import_observations(
     ctx: Context, api_key: str, series_id: str,
 ) -> Iterator[Records[FredObservation]]:
     latest_fetched_at = ctx.get_state_value("latest_fetched_at")
     if latest_fetched_at:
         # Two year curing window (to be safe)
-        obs_start = latest_fetched_at - timedelta(days=365 * 2)
+        obs_start = ensure_datetime(latest_fetched_at) - timedelta(days=365 * 2)
     else:
         obs_start = MIN_DATE
     params = {
